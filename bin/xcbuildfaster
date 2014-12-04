@@ -6,8 +6,8 @@ require 'optparse'
 ignore_subprojects = []
 
 option_parser = OptionParser.new do |opts|
-	opts.banner = "Usage: xcbuildfaster XCODE_PROJECT_PATH [options]"
-	opts.on('-i', '--ignore SUBPROJECT_NAME', 'Ignore subproject') do |subproject_name|
+	opts.banner = "Usage: xcbuildfaster <Xcode Project Path> [options]"
+	opts.on('-i', '--ignore <Subproject Name>', 'Ignore subproject') do |subproject_name|
 		ignore_subprojects << subproject_name
 	end
 end

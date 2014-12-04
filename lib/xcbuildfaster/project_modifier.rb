@@ -9,7 +9,16 @@ module XCBuildFaster
 		end
 
 		def go!
+			puts "Modifying project: #{@root_project}"
+
+			if @ignored_subprojects.count > 0
+				puts "Ignoring subprojects: #{@ignored_subprojects}"
+			end
+
 			recursively_fastify(@root_project)
+
+			puts "\nProject(s) successfully modified."
+			puts "WARNING: Modified projects have had build phases removed & build settings changed. You probably don't want to commit any of these changes."
 		end
 
 		private
@@ -17,7 +26,7 @@ module XCBuildFaster
 			project.targets.each do |target|
 				scripts = target.shell_script_build_phases
 				target.shell_script_build_phases.each do |shell_script_build_phase|
-					shell_script_build_phase.shell_script = "# shell script removed. You probably don't want to commit this."
+					shell_script_build_phase.shell_script = "# WARNING: Shell script removed via XCBuildFaster! You probably don't want to commit this."
 				end
 
 				target.build_configurations.each do |build_config|
@@ -52,11 +61,12 @@ module XCBuildFaster
 
 		def recursively_fastify(project)
 			if should_be_ignored?(project)
+				puts "Ignoring: #{project}"
 				return
 			end
 
 			fastify(project)
-			puts "#{project} has been successfully modified"
+			puts "Successfully modified: #{project}"
 
 			project.subprojects.each do |subproject|
 				begin
@@ -68,8 +78,7 @@ module XCBuildFaster
 		end
 
 		def should_be_ignored?(project)
-			project_name = project.to_s
-			return @ignored_subprojects.include? project_name
+			return @ignored_subprojects.any? { |ignored| project.to_s.include? ignored }
 		end
 	end
 end
