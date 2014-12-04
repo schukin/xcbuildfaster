@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["daveschukin@gmail.com"]
   spec.summary       = %q{Tweaks your Xcode workspace to make it compile faster.}
   spec.description   = %q{Tweaks your Xcode workspace to make it compile faster.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/schukin/xcbuildfaster"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

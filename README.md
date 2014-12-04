@@ -6,10 +6,6 @@ Tweaks your Xcode project / subprojects for faster compilation times.
 
 	gem install xcbuildfaster
 
-Add this line to your application's Gemfile:
-
-    gem 'xcbuildfaster'
-
 ## Usage
 
 	xcbuildfaster MyProject.xcodeproj
