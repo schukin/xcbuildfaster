@@ -26,7 +26,16 @@ module XCBuildFaster
 			project.targets.each do |target|
 				scripts = target.shell_script_build_phases
 				target.shell_script_build_phases.each do |shell_script_build_phase|
-					shell_script_build_phase.shell_script = "# WARNING: Shell script removed via XCBuildFaster! You probably don't want to commit this."
+					script = shell_script_build_phase.shell_script
+
+					# Comment out each line of the script
+					script = script.lines.map { |line| "# #{line}" }.join
+
+					# Add a warning
+					warning = "echo 'warning: #{target.to_s} modified by xcbuildfaster. Your run script(s) have been replaced with this warning, you probably dont want to commit this!'"
+					script = "#{warning}\n#{script}"
+
+					shell_script_build_phase.shell_script = script
 				end
 
 				target.build_configurations.each do |build_config|
