@@ -10,6 +10,7 @@ option_parser = OptionParser.new do |opts|
 	opts.on('-i', '--ignore <Subproject Name>', 'Ignore subproject') do |subproject_name|
 		ignore_subprojects << subproject_name
 	end
+	opts.on_tail("-v", "--version", "Show version") { puts XCBuildFaster::VERSION; exit }
 end
 
 option_parser.parse!

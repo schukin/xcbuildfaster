@@ -1,3 +1,3 @@
-module Xcbuildfaster
-  VERSION = "0.0.2"
+module XCBuildFaster
+  VERSION = "0.0.3"
 end
